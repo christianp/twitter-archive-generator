@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body_class %}hashtag-tweets tweets-by-date{% endblock %}
+
+{% block header %}
+<h1>Tweets tagged <strong class="hashtag">#{{hashtag}}</strong></h1>
+{% endblock header %}
+
+{% block main %}
+    {% for tweet in tweets %}
+        {% include "tweet.html" %}
+    {% endfor %}
+{% endblock main %}

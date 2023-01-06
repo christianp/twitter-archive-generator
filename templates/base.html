@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta charset="utf-8">
+        <title>{% block title %}Tweets by {{my_username}}{% endblock title %}</title>
+        <link rel="stylesheet" href="{{'/static/style.css'|relative_url}}">
+    </head>
+    <body class="{% block body_class %}{% endblock %}">
+        <header class="undecorated-links">
+            <nav>
+                <a href="{{'/'|relative_url}}">Tweets by {{my_username}}</a>
+            </nav>
+            {% block header %}
+            {% endblock header %}
+        </header>
+        <main>            
+            {% block main %}
+            {% endblock main %}
+        </main>
+    </body>
+</html>

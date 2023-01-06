@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block body_class %}year-tweets tweets-by-date{% endblock %}
+
+{% block header %}
+<h1>Tweets from {{year}}</h1>
+{% endblock header %}
+
+{% block main %}
+    {% for month, month_tweets in tweets %}
+        <h2 id="{{year}}-{{month}}" class="month">{{month|month}}</h3>
+        {% for tweet in month_tweets %}
+            {% include "tweet.html" %}
+        {% endfor %}
+    {% endfor %}
+{% endblock main %}

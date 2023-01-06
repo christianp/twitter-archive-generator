@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block body_class %}index{% endblock %}
+
+{% block main %}
+    <p>This site contains the archive of my public posts on <a href="https://twitter.com">twitter.com</a>.</p>
+
+    <p>My username was <a rel="me" href="https://twitter.com/{{my_username}}">@{{my_username}}</a>.</p>
+
+    <p>Browse the tweets by year:</p>
+
+    <ul>
+        {% for year, num_tweets in years %}
+        <li>
+            <a href="{{'/year'|relative_url}}/{{year}}">{{year}}</a>
+            (<span class="number">{{num_tweets}}</span> tweets)
+        </li>
+        {% endfor %}
+    </ul>
+
+    <p>Or view <a href="{{'/every_tweet.html'|relative_url}}">every tweet</a>.</p>
+{% endblock main %}

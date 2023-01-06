@@ -1,0 +1,30 @@
+<article class="tweet{% if current_tweet == tweet %} current-tweet{% endif %}" data-id="{{tweet.id_str}}">
+    <header>
+        <a href="{{tweet.url|relative_url}}"><time>{{tweet.created_at}}</time></a>
+        {% if tweet.is_reply %}
+        <p class="in-reply-to">In reply to <a href="{% if tweet.in_reply_to_screen_name == my_username %}{{'/status'|relative_url}}/{{tweet.in_reply_to_status_id}}{% else %}https://twitter.com/{{tweet.in_reply_to_screen_name}}/status/{{tweet.in_reply_to_status_id}}{% endif %}">@{{tweet.in_reply_to_screen_name}}</a></p>
+        {% endif %}
+    </header>
+    
+    <p class="content">{{tweet|tweet_content|safe}}</p>
+
+    <div class="media media-count-{{tweet.media|length}}">
+        {% for media in tweet.media %}
+        <figure>
+            <a href="{{'/media'|relative_url}}/{{media.filename}}">
+                {% if media.type == 'photo' %}
+                <img class="media-element" loading="lazy" src="{{'/media'|relative_url}}/{{media.filename}}">
+                {% elif media.type == 'video' %}
+                <video class="media-element" controls loop loading="lazy" src="{{'/media'|relative_url}}/{{media.filename}}">
+                {% endif %}
+            </a>
+        </figure>
+        {% endfor %}
+    </div>
+    
+    <footer>
+        <span class="favourites"><span class="number">{{tweet.favorite_count}}</span> {{"favourite"|pluralise(tweet.favorite_count)}}</span>
+        <span class="retweets"><span class="number">{{tweet.retweet_count}}</span> {{"retweet"|pluralise(tweet.retweet_count)}}</span>
+    </footer>
+    
+</article>

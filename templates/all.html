@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block body_class %}all-tweets tweets-by-date{% endblock %}
+
+{% block header %}
+<h1>Every tweet</h1>
+{% endblock %}
+
+{% block main %}
+    {% for year, year_tweets in tweets %}
+        <h2 id="year-{{year}}" class="year">{{year}}</h2>
+        {% for month, month_tweets in year_tweets %}
+            <h3 id="{{year}}-{{month}}" class="month">{{month|month}}</h3>
+            {% for tweet in month_tweets %}
+                {% include "tweet.html" %}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+{% endblock main %}

@@ -1,0 +1,172 @@
+:root {
+  --tweet-bg: white;
+  --tweet-text: black;
+  --tweet-bg-darker: #aaa;
+  --tweet-text-darker: black;
+  --tweet-radius: 0.5rem;
+  --tweet-border-color: #ccc;
+  --tweet-border-width: 0.2rem;
+  --tweet-width: 40rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background: hsl(200,50%,90%);
+}
+
+body > header > nav {
+  font-size: 3rem;
+}
+body > header {
+  margin: 0 0 3rem 0;
+  padding: 1rem;
+}
+.undecorated-links a {
+  text-decoration: none;
+}
+
+body.tweets-by-date > main {
+  display: grid;
+  grid-template-columns: auto auto var(--tweet-width) 1fr;
+  grid-gap: 1em;
+  position: relative;
+  align-items: start;
+}
+
+.year {
+  grid-column: 1;
+}
+.month {
+  grid-column: 2;
+}
+.year, .month {
+  position: sticky;
+  top: 0;
+  background: white;
+  margin: 0;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  height: 2.5rem;
+  line-height: 1em;
+}
+
+body.single-tweet article.tweet {
+  margin: 1rem auto;
+  max-width: 40rem;
+}
+
+article.tweet {
+  grid-column: 3;
+  margin: 0 0 1em 0;
+  display: grid;
+  grid-template:
+    "header"
+    "content"
+    "footer"
+  ;
+  border-radius: calc(var(--tweet-border-width) + var(--tweet-radius));
+  border: var(--tweet-border-width) solid var(--tweet-border-color);
+}
+
+body.single-tweet article.tweet:not(.current-tweet) {
+  --tweet-bg-darker: #eee;
+}
+
+.tweet > :is(header,footer) {
+  padding: 0.5rem;
+  background: var(--tweet-bg-darker);
+  color: var(--tweet-text-darker);
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+}
+.tweet > header {
+  border-radius: var(--tweet-radius) var(--tweet-radius) 0 0;
+}
+.tweet > header a:not(:hover,:focus) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tweet > footer {
+  border-radius: 0 0 var(--tweet-radius) var(--tweet-radius);
+}
+
+.tweet .content {
+  line-height: 1.5em;
+  margin: 0;
+  background: var(--tweet-bg);
+  color: var(--tweet-text);
+  padding: 1rem;
+  overflow: auto;
+  hyphens: auto;
+}
+
+.tweet .media {
+  display: flex;
+  padding: 1rem;
+  background: var(--tweet-bg);
+  flex-wrap: wrap;
+  grid-gap: 1em;
+}
+.tweet .media.media-count-0 {
+  display: none;
+}
+.tweet .media.media-count-1 {
+}
+
+.tweet .media > figure {
+  width: 100%;
+  margin: 0;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  /*! height: 100%; */
+  flex: 1 1;
+  max-width: 100%;
+  min-width: 15em;
+  background: var(--tweet-bg);
+}
+.tweet .media > figure > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.tweet .media > figure .media-element {
+  width: 100%;
+  height: 100%;
+  /*! object-fit: contain; */
+  display: block;
+  border-radius: var(--tweet-radius);
+}
+
+.tweet .in-reply-to {
+  margin: 0;
+}
+
+.tweet .number {
+  font-weight: bold;
+}
+
+@media (max-width: 50rem) {
+  body.tweets-by-date > main {
+    grid-template-columns: 1fr;
+  }  
+  body.all-tweets .month {
+    top: 2.5rem;
+  }
+  .year {
+    grid-column: 1;
+  }
+  .month {
+    grid-column: 1;
+  }
+  article.tweet {
+    grid-column: 1;
+  }
+}
+

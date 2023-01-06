@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block body_class %}single-tweet{% endblock %}
+
+{% block main %}
+
+    {% with current_tweet = tweet %}
+        {% for thread_tweet in tweet.parents() %}
+            {% with tweet = thread_tweet %}
+            {% include "tweet.html" %}
+            {% endwith %}
+        {% endfor %}
+        {% for thread_tweet in tweet.thread() %}
+            {% with tweet = thread_tweet %}
+            {% include "tweet.html" %}
+            {% endwith %}
+        {% endfor %}
+    {% endwith %}
+
+    <p><a href="https://twitter.com/{{my_username}}/status/{{tweet.id_str}}">View this tweet on twitter.com</a></p>
+
+    <p><a href="../{{tweet.id}}.json">This tweet as JSON</a></p>
+
+{% endblock main %}
